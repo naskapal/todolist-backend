@@ -21,11 +21,16 @@ const generate = (req, res, next) => {
 
 const verify = (req, res, next) => {
   jwt.verify(req.headers.uid, secretkey, (err, payload) => {
-    payload
-    ? next()
-    : res.status(401).send({
-      msg: 'Unauthorized access'
-    })
+    console.log(payload);
+    if (payload) {
+      req.headers.userid = payload.id
+      next()
+    }
+    else {
+      res.status(401).send({
+        msg: 'Unauthorized access'
+      })
+    }
   })
 }
 

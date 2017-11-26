@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose').connect(process.env.DB_PATH),
-      Schema = mongoose.schema,
+      Schema = mongoose.Schema,
       check = require('validator');
 
 let todoSchema = mongoose.Schema({
