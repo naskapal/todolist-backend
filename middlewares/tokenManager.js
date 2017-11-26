@@ -5,8 +5,9 @@ const secretkey = process.env.JWT_SECRET
 
 const generate = (req, res, next) => {
   jwt.sign({
-    name : req.headers.userDetails.name,
-    email : req.headers.userDetails.email
+    id: req.headers.userDetails._id,
+    name: req.headers.userDetails.name,
+    email: req.headers.userDetails.email
   },
   secretkey, (err, token) => {
     if (err) {
@@ -20,8 +21,11 @@ const generate = (req, res, next) => {
 
 const verify = (req, res, next) => {
   jwt.verify(req.headers.uid, secretkey, (err, payload) => {
-    
-    //if success
+    payload
+    ? next()
+    : res.status(401).send({
+      msg: 'Unauthorized access'
+    })
   })
 }
 
